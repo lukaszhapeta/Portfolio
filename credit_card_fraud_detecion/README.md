@@ -1,67 +1,36 @@
-This project contains analysis with dataset called "Credit Card Fraud Detection" downloaded from https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud/data.
-I've started with analysis made in Jupyter Notebook file `ccfd.ipynb`.
-	
+# Introduction
 
- 
-	3.1) Załadowanie bibliotek, zbioru i funkcji, których użyto w dalszej części.
-	3.2) Podział danych na zbiory testowe i treningowe. Modele uczymy na zbiorze treningowym.* 
-	     Zbiór załadowany do bazy danych, jest zbiorem testowym z powyższego podziału.
-	3.3) Histogram, macierz korelacji, wyświetlone poglądowo.
-	3.4) Regresja logistyczna
-		3.4.1) Sprawdzamy próg klasyfikacji znajdujący się nabliżej punktu (0,1) krzywej ROC.
-		3.4.2) Sprawdzamy próg klasyfikacji 0.5 (klasyczny).
-		3.4.3) Sprawdzamy próg klasyfikacji 0.85, wygenerowany na podstawie optymalizacji ilości popełnianych błędów na zbiorze testowym.
-		3.4.4) Sprawdzamy próg klasyfikacji 0.86. Uznajemy za najlepszy dla tego modelu.
-	3.5) Drzewo decyzyjne.
-	3.6) Random Forest, uznany za najlepszy. Na jego podstawie wybieramy finalny model.
-	3.7) Połączenie z dockerem, funkcja dodająca wiersze do bazy.
+This project involves the analysis of the "Credit Card Fraud Detection" dataset, which can be downloaded from https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud/data.
 
+The primary goal was to explore Docker, MySQL, and databases by extending the data analysis into creating a database within Docker's container, with connections through Python.
 
+## Steps Taken:
+1. **Data Analysis:**
+	- Split the data into a train and test set. The test set was exported into `csv_files/transactions.csv` for later use.
+	- Implemented a Logistic Regression model, testing with various thresholds.
+	- Utilized a Random Forest model for further analysis.
+2. **Database Creation:**
+   	- Loaded `csv_files/transactions.csv` as the transaction table.
+   	- Added tables for clients, cards, and predictions made with the Random Forest model.
 
+	Above operations are stored in `sql_files/database.sql` file. Database ER diagram is presented in `sql_files/ER_diagram.png`.
+3. **Python-Database Connection:**
+	- Established a connection with the database at the Python level using a Docker container.
+4. **Database Procedure:**
+	-  The file `sql_files/database2.sql` contains a procedure that utilizes every table in the database, offering a comprehensive overview of its structure and functionality.
 
-Repozytorium zawiera plik z transakcjami kartą kredytową, w których część jest oznaczona jako oszustwo, a część jako poprawna transakcja.
-Projekt składa się z analizy tych danych za pomocą regresji logistycznej oraz metody Random Forest. Analizę rozbudowano,
-o umieszczenie bazy w kontenerze dockera, wraz z rozbudową o kolejne tabele (w ramach przedstawienia umiejętności).
+I have provided clear comments in every cell to facilitate understanding of each step.
 
+# How to run it?
 
+To run the project, follow these sequential commands for building the Docker image and running the container:
 
-
-Uruchomienie:
-
-1) Załadowanie kontenera
-Poprzez konsolę należy wejść do folderu, w którym umieszczono wszystkie pliki znajdujące się w BD_projekt.rar, a następnie wkleić poniższe komendy:
-
-docker build -t bd_image .
-
-docker run -d -p 3308:3306 --name bd_projekt bd_image
-
-Pierwsza buduje obraz z pliku Dockerfile, druga tworzy kontener ze zbudowanego obrazu.
-
-2) Utworzenie bazy 
-
-W pliku database.sql znajdują się wszystkie polecenia, które są potrzebne, żeby baza była spójna.
-Jest on uruchamiany wraz z budowaniem obrazu.
-
-Plik database_2.sql zawiera procedurę wyświetlającą dane klienta, kwotę transakcji, typ karty i predykcję.
-
-3) Model w Jupyter Notebook (Python)
-
-Plik BD_projekt.ipynb zawiera analizę zbioru. 
-Po kolei:
-	3.1) Załadowanie bibliotek, zbioru i funkcji, których użyto w dalszej części.
-	3.2) Podział danych na zbiory testowe i treningowe. Modele uczymy na zbiorze treningowym.* 
-	     Zbiór załadowany do bazy danych, jest zbiorem testowym z powyższego podziału.
-	3.3) Histogram, macierz korelacji, wyświetlone poglądowo.
-	3.4) Regresja logistyczna
-		3.4.1) Sprawdzamy próg klasyfikacji znajdujący się nabliżej punktu (0,1) krzywej ROC.
-		3.4.2) Sprawdzamy próg klasyfikacji 0.5 (klasyczny).
-		3.4.3) Sprawdzamy próg klasyfikacji 0.85, wygenerowany na podstawie optymalizacji ilości popełnianych błędów na zbiorze testowym.
-		3.4.4) Sprawdzamy próg klasyfikacji 0.86. Uznajemy za najlepszy dla tego modelu.
-	3.5) Drzewo decyzyjne.
-	3.6) Random Forest, uznany za najlepszy. Na jego podstawie wybieramy finalny model.
-	3.7) Połączenie z dockerem, funkcja dodająca wiersze do bazy.
-
-Po uruchomieniu funkcji "insert_data" w pliku BD_projekt.ipynb, możemy za pomocą database_2.sql i zawartej w niej procedury,
-analizować "na żywo" aktualizację bazy danych.
-
-* Podział na zbiory wymaga załadowania pliku creditcard.csv
+1. **Build Docker Image:**
+   ```bash
+   docker build -t ccfd_image .
+   ```
+2. **Run Docker Container:**
+   ```bash
+   docker run -d -p 3308:3306 --name ccfd_project ccfd_image
+   ```
+The image is automatically configured to build the database using the `sql_files/database.sql` and `csv_files/transactions.csv` files.
