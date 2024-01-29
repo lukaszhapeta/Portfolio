@@ -17,7 +17,7 @@ The primary goal was to explore Docker, MySQL, and databases by extending the da
 3. **Python-Database Connection:**
 	- Established a connection with the database at the Python level using a Docker container.
 4. **Database Procedure:**
-	-  The file `sql_files/database2.sql` contains a procedure that utilizes every table in the database, offering a comprehensive overview of its structure and functionality.
+	-  The file `sql_files/procedure.sql` contains a procedure that utilizes every table in the database, offering a comprehensive overview of its structure and functionality.
 
 I have provided clear comments in every cell to facilitate understanding of each step.
 
