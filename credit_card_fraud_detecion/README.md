@@ -1,3 +1,31 @@
+This project contains analysis with dataset called "Credit Card Fraud Detection" downloaded from https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud/data.
+I've started with analysis made in Jupyter Notebook file `ccfd.ipynb`.
+	
+
+ 
+	3.1) Załadowanie bibliotek, zbioru i funkcji, których użyto w dalszej części.
+	3.2) Podział danych na zbiory testowe i treningowe. Modele uczymy na zbiorze treningowym.* 
+	     Zbiór załadowany do bazy danych, jest zbiorem testowym z powyższego podziału.
+	3.3) Histogram, macierz korelacji, wyświetlone poglądowo.
+	3.4) Regresja logistyczna
+		3.4.1) Sprawdzamy próg klasyfikacji znajdujący się nabliżej punktu (0,1) krzywej ROC.
+		3.4.2) Sprawdzamy próg klasyfikacji 0.5 (klasyczny).
+		3.4.3) Sprawdzamy próg klasyfikacji 0.85, wygenerowany na podstawie optymalizacji ilości popełnianych błędów na zbiorze testowym.
+		3.4.4) Sprawdzamy próg klasyfikacji 0.86. Uznajemy za najlepszy dla tego modelu.
+	3.5) Drzewo decyzyjne.
+	3.6) Random Forest, uznany za najlepszy. Na jego podstawie wybieramy finalny model.
+	3.7) Połączenie z dockerem, funkcja dodająca wiersze do bazy.
+
+
+
+
+Repozytorium zawiera plik z transakcjami kartą kredytową, w których część jest oznaczona jako oszustwo, a część jako poprawna transakcja.
+Projekt składa się z analizy tych danych za pomocą regresji logistycznej oraz metody Random Forest. Analizę rozbudowano,
+o umieszczenie bazy w kontenerze dockera, wraz z rozbudową o kolejne tabele (w ramach przedstawienia umiejętności).
+
+
+
+
 Uruchomienie:
 
 1) Załadowanie kontenera
